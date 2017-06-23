@@ -1,5 +1,6 @@
 #!/bin/bash
-
+thisdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd $thisdir
 python3 -m alpinonaf
 
 #For instance to set the maximum number of minutes per sentence to 5 minutes:
