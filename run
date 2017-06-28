@@ -1,8 +1,49 @@
 #!/bin/bash
+# Opional option "-a <alpino_option>"
+# Option "-t maxtime" 
+# Set ALPINO_HOME in hierarchy: 1) alpino_option; 2) ALPINO_HOME; 3) default (ALPINO_DEFAULT)
 thisdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+#
+# Get "-a" or "-t" option if present.
+#
+opts=""
+while getopts a:t: opt; do
+   case $opt in
+     a) ALPINO_CLOPT=$OPTARG
+        ;;
+     t) MAX_TIME=$OPTARG
+        ;;
+     *) echo "Unknown option." 
+        exit 1
+        ;;
+    esac
+done
+#
+# Set ALPINO_HOME
+#
+ALPINO_DEFAULT=$thisdir/Alpino
+ALPINO_HOME=${ALPINO_CLOPT:-$ALPINO_HOME}
+ALPINO_HOME=${ALPINO_HOME:-$ALPINO_DEFAULT}
 cd $thisdir
-python3 -m alpinonaf
-
+#
+# Check for Alpino
+#
+if
+  [ ! -x "${ALPINO_HOME}/bin/alpino" ]
+then
+  echo "Cannot find Alpino" >&2
+  exit 4
+fi
+#
+# Run
+#
+if 
+  [ -z "$MAX_TIME" ]
+then
+  python3 -m alpinonaf
+else
+  python3 -m alpinonaf -t $MAX_TIME
+fi
 #For instance to set the maximum number of minutes per sentence to 5 minutes:
 ###python $this_dir/core/morph_syn_parser.py -t 5
 

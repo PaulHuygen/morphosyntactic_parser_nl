@@ -1,4 +1,31 @@
 #!/bin/bash
+# Install the morpho-syntactic parser.
+# Alpino:
+# if variable ALPINO_HOME does not exist, find or try to install Alpino within the directory of this module.
+# Otherwise, find or try to install Alpino in where ALPINO_HOME points to.
+# Exit in failure when in the end Alpino does not seem to be installed.
+# If that variable does not exist, install the latest Alpino in the directory of the module itself.
 thisdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $thisdir
+#
+# set up Alpino
+#
+ALPINO_DEF=$thisdir/Alpino
+ALPINO_HOME=${1:-$ALPINO_HOME}
+ALPINO_HOME=${ALPINO_HOME:-$ALPINO_DEF}
+if
+  [ ! -x "${ALPINO_HOME}/bin/alpino" ]
+then
+  export ALPINO_SOCK=$(dirname $ALPINO_HOME)
+  ./install_alpino $ALPINO_SOCK
+  if
+     [ $? -gt 0 ]
+  then
+     echo "Cannot install Alpino in $ALPINO_HOME"
+     exit 4
+  fi
+fi  
+#
+# Set up this module
+#
 python3 ./setup.py
