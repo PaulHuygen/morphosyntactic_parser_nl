@@ -1,5 +1,5 @@
 #!/bin/bash
-# Opional option "-a <alpino_option>"
+# Optional option "-a <alpino_option>"
 # Option "-t maxtime" 
 # Set ALPINO_HOME in hierarchy: 1) alpino_option; 2) ALPINO_HOME; 3) default (ALPINO_DEFAULT)
 thisdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -29,7 +29,7 @@ cd $thisdir
 # Check for Alpino
 #
 if
-  [ ! -x "${ALPINO_HOME}/bin/alpino" ]
+  [ ! -x "${ALPINO_HOME}/bin/Alpino" ]
 then
   echo "Cannot find Alpino" >&2
   exit 4

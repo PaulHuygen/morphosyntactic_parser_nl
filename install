@@ -14,7 +14,7 @@ ALPINO_DEF=$thisdir/Alpino
 ALPINO_HOME=${1:-$ALPINO_HOME}
 ALPINO_HOME=${ALPINO_HOME:-$ALPINO_DEF}
 if
-  [ ! -x "${ALPINO_HOME}/bin/alpino" ]
+  [ ! -x "${ALPINO_HOME}/bin/Alpino" ]
 then
   export ALPINO_SOCK=$(dirname $ALPINO_HOME)
   ./install_alpino $ALPINO_SOCK
