@@ -2,14 +2,26 @@
 # Optional option "-a <alpino_option>"
 # Option "-t maxtime" 
 # Set ALPINO_HOME in hierarchy: 1) alpino_option; 2) ALPINO_HOME; 3) default (ALPINO_DEFAULT)
-thisdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+modname=morphosyntactic_parser_nl
+#
+# Find the path to this module
+#
+if
+  [ -z ${MODROOT+x} ]
+then
+  # Find out path ourselves
+  thisdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
+else
+  thisdir=$MODROOT/$modname
+fi
+scriptpath=${thisdir}/run
 #
 # Get "-a" or "-t" option if present.
 #
 opts=""
 while getopts a:t: opt; do
    case $opt in
-     a) ALPINO_CLOPT=$OPTARG
+     a) ALPINO_HOME=$OPTARG
         ;;
      t) MAX_TIME=$OPTARG
         ;;
@@ -22,7 +34,6 @@ done
 # Set ALPINO_HOME
 #
 ALPINO_DEFAULT=$thisdir/Alpino
-ALPINO_HOME=${ALPINO_CLOPT:-$ALPINO_HOME}
 ALPINO_HOME=${ALPINO_HOME:-$ALPINO_DEFAULT}
 cd $thisdir
 #
@@ -36,16 +47,14 @@ then
 fi
 #
 # Run
+# See https://stackoverflow.com/questions/3601515/how-to-check-if-a-variable-is-set-in-bash
+#   for the trick to check whether MAX_TIME has been set.
 #
 if 
-  [ -z "$MAX_TIME" ]
+  [ -z ${MAX_TIME+x} ]
 then
-  python3 -m alpinonaf
+  python -m alpinonaf
 else
-  python3 -m alpinonaf -t $MAX_TIME
+  python -m alpinonaf -t $MAX_TIME
 fi
-#For instance to set the maximum number of minutes per sentence to 5 minutes:
-###python $this_dir/core/morph_syn_parser.py -t 5
-
-#Maximum 30 seconds per setence:
-###python $this_dir/core/morph_syn_parser.py -t 0.5
+ 
