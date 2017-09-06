@@ -28,4 +28,5 @@ fi
 #
 # Set up this module
 #
-python3 ./setup.py
+python3 ./setup.py install
+
