@@ -1,3 +1,5 @@
+#!/bin/bash
+# Argument: directory in which to place the Alpino directory.
 set -e
 DEST=${1:-$HOME/tools}
 ALPINO_HOME="${DEST}/Alpino"
@@ -9,7 +11,7 @@ fi
 
 echo "Installing Alpino to $ALPINO_HOME"
 
-mkdir -p $ALPINO_HOME
+mkdir -p $DEST
 curl http://www.let.rug.nl/vannoord/alp/Alpino/versions/binary/latest.tar.gz | tar xz -C $DEST
 
 echo "Successfully installed Alpino at:"

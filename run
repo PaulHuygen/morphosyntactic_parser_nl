@@ -34,7 +34,7 @@ done
 # Set ALPINO_HOME
 #
 ALPINO_DEFAULT=$thisdir/Alpino
-ALPINO_HOME=${ALPINO_HOME:-$ALPINO_DEFAULT}
+export ALPINO_HOME=${ALPINO_HOME:-$ALPINO_DEFAULT}
 cd $thisdir
 #
 # Check for Alpino

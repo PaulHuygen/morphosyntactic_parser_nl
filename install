@@ -17,7 +17,7 @@ if
   [ ! -x "${ALPINO_HOME}/bin/Alpino" ]
 then
   export ALPINO_SOCK=$(dirname $ALPINO_HOME)
-  ./install_alpino $ALPINO_SOCK
+  ./install_alpino.sh $ALPINO_SOCK
   if
      [ $? -gt 0 ]
   then
